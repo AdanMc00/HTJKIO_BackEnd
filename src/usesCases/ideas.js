@@ -1,6 +1,6 @@
 const Idea = require('../models/ideas')
 
-function create({
+function create ({
   title,
   author,
   dateCreate,
@@ -12,25 +12,25 @@ function create({
     author,
     dateCreate,
     imageUrl,
-    description,
+    description
   })
   return newIdea.save()
 }
 
-function getAll() {
+function getAll () {
   return Idea.find()
 }
 
-function getById(id) {
+function getById (id) {
   return Idea.findById(id)
 
 }
 
-function deleteById(id) {
+function deleteById (id) {
   return Idea.findByIdAndDelete(id)
 }
 
-function updateById(id, ideaInfoToUpdate) {
+function updateById (id, ideaInfoToUpdate) {
   return Idea.findByIdAndUpdate(id, ideaInfoToUpdate)
 }
 

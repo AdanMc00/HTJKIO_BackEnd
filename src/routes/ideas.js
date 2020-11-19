@@ -1,12 +1,14 @@
 const express = require('express')
+passport = require ('passport')
 const idea = require('../usesCases/ideas')
+const jwt = require ('jsonwebtoken');
+require ('../../pass-jwt')
 const router = express.Router()
-const passport = require('passport');
-require('../../passport.js');
 
-router.get('/', async (req, res) => {
+
+router.get('/',passport.authenticate('jwt', {session : false}), async (req, res) => {
   try {
-   const ideas = await idea.getAll()
+    const ideas = await idea.getAll()
     res.json({
       success: true,
       message: 'all ideas',
@@ -22,7 +24,7 @@ router.get('/', async (req, res) => {
       })
   }
 })
-router.post('/',/* auth, */ async (request, response) => {
+router.post('/', async (request, response) => {
   try {
     const newIdea = await idea.create(request.body)
     response.status(200),

@@ -4,17 +4,20 @@ const passport = require('passport')
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
 
 passport.serializeUser((user, done)=> {
-  done(null, user);
+  done(null, user.id);
 })
 
-passport.deserializeUser(function(user, done) {
+passport.deserializeUser(async (id, done) => {
+  const user = await User.findById(id);
+
   done(null, user);
 });
 
-passport.use(new GoogleStrategy({
+// Estrategia para Registrarse
+passport.use("sign-in-google", new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL:'http://localhost:8080/users/auth/google/callback',
+    callbackURL:'http://localhost:8080/auth/google/callback',
     scope: ['profile', 'email']
   },
   function (accessToken, refreshToken, profile, done) {
@@ -34,10 +37,35 @@ passport.use(new GoogleStrategy({
         })
         user.save(function (err) {
           if (err) throw err
-          done(null, user)
+          done(null, profile)
         })
       }
     })
   }))
-module.exports = passport
+
+// Estrategia para Iniciar Sesion
+
+
+passport.use("sign-up-google",new GoogleStrategy(
+  {
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL:'http://localhost:8080/auth/google/signup',
+    scope: ['profile', 'email']
+  },
+  async (accessToken, refreshToken, profile, done) => {
+   // let provider_id = profile.id
+    const user = await User.findOne({ 'provider_id': profile.id });
+    if (user) {
+      done(null, user)
+    } else {
+      done(null, false)
+    }
+
+  }
+  )
+);
+
+
+
 
