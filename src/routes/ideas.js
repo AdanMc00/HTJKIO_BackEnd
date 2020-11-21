@@ -6,7 +6,7 @@ require ('../../pass-jwt')
 const router = express.Router()
 
 
-router.get('/',passport.authenticate('jwt', {session : false}), async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const ideas = await idea.getAll()
     res.json({
@@ -24,7 +24,7 @@ router.get('/',passport.authenticate('jwt', {session : false}), async (req, res)
       })
   }
 })
-router.post('/', async (request, response) => {
+router.post('/', passport.authenticate('jwt', {session : false}), async (request, response) => {
   try {
     const newIdea = await idea.create(request.body)
     response.status(200),
