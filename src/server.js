@@ -1,5 +1,4 @@
 const express = require('express')
-//const urlencoded = express.urlencoded()
 const json = express.json()
 const cors = require('cors')
 const morgan = require('morgan');
@@ -13,7 +12,7 @@ app.use(express.urlencoded({extended:false}))
 app.use(cors())
 
 const ideasRouter = require('./routes/ideas')
-app.use('/ideas', ideasRouter)
+app.use('/ideas',passport.authenticate('jwt', {session : false}), ideasRouter)
 const usersRouter = require('./routes/users')
 app.use('/', usersRouter)
 

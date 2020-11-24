@@ -1,12 +1,11 @@
 const express = require('express')
-passport = require ('passport')
+passport = require('passport')
 const idea = require('../usesCases/ideas')
-const jwt = require ('jsonwebtoken');
-require ('../../pass-jwt')
+const jwt = require('jsonwebtoken')
+require('../../pass-jwt')
 const router = express.Router()
 
-
-router.get('/', async (req, res) => {
+router.get('/',  async (req, res) => {
   try {
     const ideas = await idea.getAll()
     res.json({
@@ -24,7 +23,7 @@ router.get('/', async (req, res) => {
       })
   }
 })
-router.post('/', passport.authenticate('jwt', {session : false}), async (request, response) => {
+router.post('/',  async (request, response) => {
   try {
     const newIdea = await idea.create(request.body)
     response.status(200),
@@ -44,7 +43,7 @@ router.post('/', passport.authenticate('jwt', {session : false}), async (request
   }
 })
 
-router.get('/:id', async (req, res) => {
+router.get('/:id',async (req, res) => {
   try {
     const id = req.params.id
     const ideaFound = await idea.getById(id)
@@ -64,7 +63,7 @@ router.get('/:id', async (req, res) => {
   }
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', passport.authenticate('jwt', {session : false}), async (req, res) => {
   try {
     const id = req.params.id
     const ideaDel = await idea.deleteById(id)
@@ -84,7 +83,7 @@ router.delete('/:id', async (req, res) => {
   }
 })
 
-router.patch('/:id', async (req, res) => {
+router.patch('/:id', passport.authenticate('jwt', {session : false}), async (req, res) => {
   try {
     const id = req.params.id
     const info = req.body

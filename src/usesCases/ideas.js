@@ -6,13 +6,15 @@ function create ({
   dateCreate,
   imageUrl,
   description,
+  userId
 }) {
   const newIdea = new Idea({
     title,
     author,
     dateCreate,
     imageUrl,
-    description
+    description,
+    userId
   })
   return newIdea.save()
 }
@@ -22,7 +24,7 @@ function getAll () {
 }
 
 function getById (id) {
-  return Idea.findById(id)
+  return Idea.find({ 'userId': id })
 
 }
 

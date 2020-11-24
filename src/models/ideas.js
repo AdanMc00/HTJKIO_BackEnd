@@ -31,6 +31,12 @@ const ideasSchema = new mongoose.Schema({
     type: String,
     minlength: 5,
     maxlength: 500
+  },
+  userId:{
+    type:String,
+    minlength: 5,
+    maxlength: 500
+
   }
 })
 
