@@ -19,7 +19,7 @@ passport.use('sign-in-google', new GoogleStrategy({
     scope: ['profile', 'email']
   },
   function (accessToken, refreshToken, profile, done) {
-   // console.log(profile)
+    // console.log(profile)
     User.findOne({ 'provider_id': profile.id }, function (err, user) {
       if (err) throw(err)
       if (!err && user != null) return done(null, user)

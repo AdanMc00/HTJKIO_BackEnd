@@ -23,6 +23,26 @@ router.get('/',  async (req, res) => {
       })
   }
 })
+router.get('/ideas/search',  async (req, res) => {
+ const word = req.body
+  console.log(word)
+  try {
+    const ideas = await idea.search(word)
+    res.json({
+      success: true,
+      message: 'search ideas',
+      data: {
+        ideas
+      }
+    })
+  } catch (error) {
+    res.status(400),
+      res.json({
+        success: false,
+        message: error.message
+      })
+  }
+})
 router.post('/',  async (request, response) => {
   try {
     const newIdea = await idea.create(request.body)

@@ -9,15 +9,11 @@ const usersSchema = new mongoose.Schema({
     required: true,
     match: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/
   },
-  // password: {
-  //   type: String,
-  //   minlength: 5,
-  //   required: false
-  // },
-  name: {
+   name: {
     type: String,
     minlength: 3,
-    maxlength: 100
+    maxlength: 100,
+    required: true
   },
   provider: {
     type: String
@@ -28,12 +24,16 @@ const usersSchema = new mongoose.Schema({
   },
   photo: {
     type: String,
-    required: false
+
   },
   createdAt: {
     type: Date,
     default: Date.now()
-  }
+  },
+  admin: {
+    type: Boolean,
+    default: false
+  },
 })
 
 

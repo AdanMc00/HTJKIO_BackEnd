@@ -1,6 +1,4 @@
-
 const mongoose = require('mongoose')
-
 const ideasSchema = new mongoose.Schema({
 
   title: {
@@ -22,21 +20,24 @@ const ideasSchema = new mongoose.Schema({
     required: false,
     default: new Date()
   },
-  imageUrl:{
+  imageUrl: {
     type: String,
     minlength: 5,
     maxlength: 500
   },
-  description:{
+  description: {
     type: String,
     minlength: 5,
     maxlength: 500
   },
-  userId:{
-    type:String,
+  userId: {
+    type: String,
     minlength: 5,
     maxlength: 500
-
+  },
+  approved: {
+    type: Boolean,
+    default: false
   }
 })
 

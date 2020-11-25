@@ -21,6 +21,9 @@ function create ({
 
 function getAll () {
   return Idea.find()
+
+}function search (word) {
+  return Idea.find(word)
 }
 
 function getById (id) {
@@ -41,5 +44,6 @@ module.exports = {
   deleteById,
   getAll,
   getById,
-  updateById
+  updateById,
+  search
 }

@@ -15,5 +15,7 @@ const ideasRouter = require('./routes/ideas')
 app.use('/ideas',passport.authenticate('jwt', {session : false}), ideasRouter)
 const usersRouter = require('./routes/users')
 app.use('/', usersRouter)
+const searchRouter = require('./routes/search')
+app.use('/search', searchRouter)
 
 module.exports = app
